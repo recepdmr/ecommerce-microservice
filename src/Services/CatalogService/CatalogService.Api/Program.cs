@@ -1,5 +1,9 @@
+using CatalogService.Api.Extensions;
+using CatalogService.Api.Infrastructure.EntityFrameworkCore.DbContexts;
+
 var builder = WebApplication.CreateBuilder(args);
 
+var configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -7,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.ConfigureDbContext(configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,5 +26,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var seeder = app.Services.GetRequiredService<CatalogDbContextSeeder>();
+seeder.SeedAsync().Wait();
 
 app.Run();
