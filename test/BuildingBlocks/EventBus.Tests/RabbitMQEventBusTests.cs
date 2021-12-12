@@ -1,9 +1,7 @@
-using System.Threading;
 using System.Threading.Tasks;
 using EventBus.Base;
 using EventBus.Base.Abstraction;
 using EventBus.Factory;
-using EventBus.RabbitMQ;
 using EventBus.Tests.EventHandlers;
 using EventBus.Tests.Events;
 using Microsoft.Extensions.DependencyInjection;

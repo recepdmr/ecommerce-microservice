@@ -76,11 +76,18 @@ namespace EventBus.RabbitMQ
 
                 properties.DeliveryMode = 2; // persintance
 
-                ConsumerChannel.QueueDeclare(queue: GetSubscriptionName(eventName),
-                durable: true,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
+                var subscriptionName = GetSubscriptionName(eventName);
+                
+                ConsumerChannel.QueueDeclare(queue: subscriptionName,
+                    durable: true,
+                    exclusive: false,
+                    autoDelete: false,
+                    arguments: null);
+
+                ConsumerChannel.QueueBind(queue: subscriptionName,
+                    exchange: EventBusConfig.DefaultTopicName,
+                    routingKey: eventName);
+
 
                 ConsumerChannel.BasicPublish(exchange: EventBusConfig.DefaultTopicName,
                 routingKey: eventName,
