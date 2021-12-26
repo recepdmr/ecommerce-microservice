@@ -78,15 +78,15 @@ namespace EventBus.RabbitMQ
 
                 var subscriptionName = GetSubscriptionName(eventName);
                 
-                ConsumerChannel.QueueDeclare(queue: subscriptionName,
-                    durable: true,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+                // ConsumerChannel.QueueDeclare(queue: subscriptionName,
+                //     durable: true,
+                //     exclusive: false,
+                //     autoDelete: false,
+                //     arguments: null);
 
-                ConsumerChannel.QueueBind(queue: subscriptionName,
-                    exchange: EventBusConfig.DefaultTopicName,
-                    routingKey: eventName);
+                // ConsumerChannel.QueueBind(queue: subscriptionName,
+                //     exchange: EventBusConfig.DefaultTopicName,
+                //     routingKey: eventName);
 
 
                 ConsumerChannel.BasicPublish(exchange: EventBusConfig.DefaultTopicName,
