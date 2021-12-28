@@ -1,6 +1,10 @@
+using IdentityService.Api.Application.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddSingleton<IIdentityService,DefaultIdentityService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
