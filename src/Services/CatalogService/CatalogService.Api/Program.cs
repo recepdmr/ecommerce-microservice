@@ -11,8 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.ConfigureConsul(builder.Configuration);
 builder.Services.ConfigureDbContext(configuration);
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -29,5 +31,6 @@ app.MapControllers();
 
 var seeder = app.Services.GetRequiredService<CatalogDbContextSeeder>();
 seeder.SeedAsync().Wait();
+app.RegisterWithConsul(app.Lifetime);
 
-app.Run();
+await app.RunAsync();
